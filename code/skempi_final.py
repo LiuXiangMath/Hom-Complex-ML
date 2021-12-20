@@ -364,6 +364,24 @@ def get_hom_complex_2D_from_bipartite_new(point_cloud,filtration):
     return simplices_p,simplices_l
 
 
+def zero_homology_of_a_complex_to_file(complex1,filename):
+    res = PH.get_persistence(complex1)
+    if len(res)==0:
+        zero_bar = np.array([])
+        np.savetxt(filename,zero_bar,delimiter=',')
+        return
+    diag = res['diagrams']
+    zero_bar = np.array(diag[0])
+    zero = zero_bar.shape
+    zero_number = zero[0]
+    c = 0
+    for j in range(zero_number):
+        if zero_bar[j][1]==-1:
+            zero_bar[j][1] = float('inf')
+            c = c + 1
+    #print(c,zero,zero_bar)
+    np.savetxt(filename,zero_bar,delimiter=',')
+
 
 def one_homology_of_a_complex_to_file(complex1,filename):
     res = PH.get_persistence(complex1)
