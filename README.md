@@ -9,7 +9,7 @@ Hom Complex based machine learning for protein-protein interactions
         Platform: Python>=3.6
         Packages needed: math, numpy>=1.18.1, scipy>=1.4.1, scikit-learn>=0.22.1
 
-# Flow of HPC-ML model
+# Flow of HCML model
 ---
 Protein-protein interaction complex  -->  Hom complex representation  -->   Feature generation  -->  Machine learning 
 # Details about each step
