@@ -23,8 +23,8 @@ def normalize(X):
 
 
 
-def get_combined_feature():
-    pre = './feature/'
+def get_combined_feature(typ):
+    pre = typ + '/feature/'
     filename1 = pre + 'alpha_h0_euler.csv'
     d1 = np.loadtxt(filename1,delimiter=',')
     t1 = d1.shape
@@ -44,8 +44,8 @@ def get_combined_feature():
 
 
 def gradient_boosting(i,X_train,Y_train,X_test,Y_test):
-    params={'n_estimators': 40000, 'max_depth': 6, 'min_samples_split': 2,
-                'learning_rate': 0.001, 'loss': 'ls','max_features':'sqrt','subsample':0.7}
+    params={'n_estimators': 4, 'max_depth': 6, 'min_samples_split': 2,
+                'learning_rate': 0.1, 'loss': 'ls','max_features':'sqrt','subsample':0.7}
     regr = GradientBoostingRegressor(**params)
     regr.fit(X_train,Y_train)
     a_predict = regr.predict(X_test)
@@ -120,14 +120,18 @@ def separate_train_and_test_index_nonbinder():
     
     
     
-def cross_validation():
-    pre = 'feature/'
+def cross_validation(typ):
+    pre = typ + '/feature/'
     filename1 = pre + '10crossvalidation_index.txt'
+    if typ=='s645':
+        filename1 = pre + 'nonbinder_10crossvalidation_index.txt' 
     f = open(filename1)
     pre_index = f.read()
     index = eval(pre_index)
     f.close()
-    all_number = 645
+    all_number = 1131 # 645/645-27 or 1131
+    if typ=='s645':
+        all_number = 645-27
     filename2 = pre + 'alpha_h0_euler_aux.csv'
     feature_matrix = np.loadtxt(filename2,delimiter=',')
     feature_matrix = normalize(feature_matrix)
@@ -175,6 +179,19 @@ def cross_validation():
         ten_pcc.append(median_p)
         ten_rmse.append(median_m)
     print('PCC:',np.mean(ten_pcc))
+    
 
+
+    
+def main():
+    
+    # skempi
+    get_combined_feature('skempi')
+    cross_validation('skempi')
+    # s645
+    get_combined_feature('s645')
+    cross_validation('s645')
+    
+main()
     
     

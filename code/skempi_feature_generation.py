@@ -6,16 +6,6 @@ import gudhi
 
 Pre = './skempi/'
 
-Protein_name = ['C', 'N', 'O']
-
-def get_info(mut):
-    chainid = mut[0]
-    wildtype = mut[2]
-    mutanttype = mut[-1]
-    residueid = mut[3:-1]
-    return chainid, wildtype, mutanttype, residueid
-
-
 
 def distance_of_two_points(p1,p2):
     temp = pow(p1[1]-p2[1],2) + pow(p1[2]-p2[2],2) + pow(p1[3]-p2[3],2)
@@ -363,7 +353,6 @@ def get_hom_complex_2D_from_bipartite_new(point_cloud,filtration):
     
     return simplices_p,simplices_l
 
-
 def zero_homology_of_a_complex_to_file(complex1,filename):
     res = PH.get_persistence(complex1)
     if len(res)==0:
@@ -421,8 +410,8 @@ def alpha_zero_homology_to_file(start,end,filtration):
         for typ in [ 'binding_mut', 'binding_wild', 'mutation_mut', 'mutation_wild' ]:
         #for typ in ['']
             for atom in ['C','N','O','CN','CO','NO']:
-                filename1 = Pre + 'alpha_point_10/' + folder + '_' + typ + '_' + atom + '1.txt'
-                filename2 = Pre + 'alpha_point_10/' + folder + '_' + typ + '_' + atom + '2.txt'
+                filename1 = Pre + 'skempi_point_10/' + folder + '_' + typ + '_' + atom + '1.txt'
+                filename2 = Pre + 'skempi_point_10/' + folder + '_' + typ + '_' + atom + '2.txt'
                 point1 = np.loadtxt(filename1,delimiter=',')
                 point2 = np.loadtxt(filename2,delimiter=',')
                 #print(point1.shape,point2.shape)
@@ -430,7 +419,7 @@ def alpha_zero_homology_to_file(start,end,filtration):
                 V1,E1 = get_alpha_one_skeleton(point1,filtration)
                 #complex1 = get_hom_complex_from_graph(V1,E1)
                 complex1 = get_one_skeleton_hom_complex_from_graph(V1,E1)
-                print(atom,'number1:',len(V1),len(E1),len(complex1))
+                #print(atom,'number1:',len(V1),len(E1),len(complex1))
                 filepath1 =Pre + 'alpha_zero_homology_' + str(filtration) + '/' + folder + '_' + typ + '_' + atom + '1_zero_homology_' + str(filtration) + '.csv'
                 zero_homology_of_a_complex_to_file(complex1,filepath1)
                 
@@ -439,7 +428,7 @@ def alpha_zero_homology_to_file(start,end,filtration):
                 V2,E2 = get_alpha_one_skeleton(point2,filtration)
                 #complex2 = get_hom_complex_from_graph(V2,E2)
                 complex2 = get_one_skeleton_hom_complex_from_graph(V2,E2)
-                print(atom,'number2:',len(V2),len(E2),len(complex2))
+                #print(atom,'number2:',len(V2),len(E2),len(complex2))
                 filepath2 =Pre + 'alpha_zero_homology_' + str(filtration) + '/' + folder + '_' + typ + '_' + atom + '2_zero_homology_' + str(filtration) + '.csv'
                 zero_homology_of_a_complex_to_file(complex2,filepath2)
                 
@@ -460,12 +449,12 @@ def label_to_file():
     filename = Pre + 'skempi.xlsx'
     df1 = pd.read_excel(filename)
     t1 = df1.shape
-    row = 645
+    row = 1131
     column = 1
     feature_matrix = np.zeros((row,column))
     
     for i in range(row):
-        print(i)
+        #print(i)
         count = 0
         feature_matrix[i,0] = df1.iloc[i,3]
     filename = Pre + 'feature/label.csv'
@@ -477,7 +466,7 @@ def alpha_h0_feature_to_file(start,end,filtration,grid_size):
     filename = Pre + 'skempi.xlsx'
     df1 = pd.read_excel(filename)
     t1 = df1.shape
-    row = 645
+    row = 1131
     grid_number = int(filtration/grid_size)
     column = 6 * 4 * 2 * grid_number
     feature_matrix = np.zeros((row,column))
@@ -546,9 +535,9 @@ def alpha_h0_feature_to_file(start,end,filtration,grid_size):
                 count = count + 1
                     
                     
-    filename = Pre + 'feature/alpha_zero_homology_feature' + str(grid_size) + '.csv'
-    np.savetxt(filename,feature_matrix,delimiter=',')
-    
+    #filename = Pre + 'feature/alpha_zero_homology_feature' + str(grid_size) + '.csv'
+    #np.savetxt(filename,feature_matrix,delimiter=',')
+    return feature_matrix
     
     
 
@@ -598,8 +587,8 @@ def alpha_edge_triangle_number_to_file(start,end,filtration,grid_size):
         for typ in [ 'binding_mut', 'binding_wild', 'mutation_mut', 'mutation_wild' ]:
         
             for atom in ['C','N','O','CN','CO','NO']:
-                filename1 = Pre + 'alpha_point_10/' + folder + '_' + typ + '_' + atom + '1.txt'
-                filename2 = Pre + 'alpha_point_10/' + folder + '_' + typ + '_' + atom + '2.txt'
+                filename1 = Pre + 'skempi_point_10/' + folder + '_' + typ + '_' + atom + '1.txt'
+                filename2 = Pre + 'skempi_point_10/' + folder + '_' + typ + '_' + atom + '2.txt'
                 point1 = np.loadtxt(filename1,delimiter=',')
                 point2 = np.loadtxt(filename2,delimiter=',')
                 #print(point1.shape,point2.shape)
@@ -607,7 +596,7 @@ def alpha_edge_triangle_number_to_file(start,end,filtration,grid_size):
                 V1,E1 = get_alpha_one_skeleton(point1,filtration)
                 complex1 = get_hom_complex_from_graph_new(V1,E1)
                 #complex1 = get_one_skeleton_hom_complex_from_graph(V1,E1)
-                print(atom,'number1:',len(V1),len(E1),len(complex1))
+                #print(atom,'number1:',len(V1),len(E1),len(complex1))
                 filepath1 = Pre + 'alpha_complex_number_' + str(filtration) + '/' + folder + '_' + typ + '_' + atom + '1.txt'
                 write_edge_triangle_number_of_a_complex_to_file(complex1,filepath1,filtration,grid_size)
                 
@@ -615,7 +604,7 @@ def alpha_edge_triangle_number_to_file(start,end,filtration,grid_size):
                 V2,E2 = get_alpha_one_skeleton(point2,filtration)
                 complex2 = get_hom_complex_from_graph_new(V2,E2)
                 #complex2 = get_one_skeleton_hom_complex_from_graph(V2,E2)
-                print(atom,'number2:',len(V2),len(E2),len(complex2))
+                #print(atom,'number2:',len(V2),len(E2),len(complex2))
                 filepath2 = Pre + 'alpha_complex_number_' + str(filtration) + '/' + folder + '_' + typ + '_' + atom + '2.txt'
                 write_edge_triangle_number_of_a_complex_to_file(complex2,filepath2,filtration,grid_size)
                 
@@ -634,7 +623,7 @@ def alpha_simplex_feature_to_file(typ,start,end,filtration,grid_size):
     filename = Pre + 'skempi.xlsx'
     df1 = pd.read_excel(filename)
     t1 = df1.shape
-    row = 645
+    row = 1131
     grid_number = int(filtration/grid_size)
     column = 6 * 4 * 2 * grid_number
     feature_matrix = np.zeros((row,column))
@@ -643,7 +632,12 @@ def alpha_simplex_feature_to_file(typ,start,end,filtration,grid_size):
         print(i)
         count = 0
         pdbid = df1.iloc[i,0]
-        chainid, wildtype, mutanttype, residueid = get_info(df1.iloc[i,1])
+        chainid = df1.iloc[i,1]
+        wildtype = df1.iloc[i,2]
+        mutanttype = df1.iloc[i,4]
+        residueid = str(df1.iloc[i,3])
+        if i==150 or i==151:
+            pdbid = '1E96'
         folder = pdbid + '_' + chainid + '_' + wildtype + '_' + residueid + '_' + mutanttype
         for j in range(grid_number):
             #left = j * grid_size
@@ -724,19 +718,26 @@ def alpha_simplex_feature_to_file(typ,start,end,filtration,grid_size):
                 count = count + 1
                     
                     
-    filename = Pre + 'feature/alpha_' + str(typ) + '_feature' + str(grid_size) + '.csv'
-    np.savetxt(filename,feature_matrix,delimiter=',')
+    #filename = Pre + 'feature/alpha_' + str(typ) + '_feature' + str(grid_size) + '.csv'
+    #np.savetxt(filename,feature_matrix,delimiter=',')
+    return feature_matrix
+    
+    
+def get_topological_feature():
+    d1 = alpha_h0_feature_to_file(0,1131,5,0.1)
+    d2 = alpha_simplex_feature_to_file('euler',0,1131,5,0.1)
+    d = np.hstack((d1,d2))
+    filename = Pre + 'feature/alpha_h0_euler.csv'
+    np.savetxt(filename,d,delimiter=',')
     
 def main():
     alpha_zero_homology_to_file(0,1131,5)
     alpha_edge_triangle_number_to_file(0,1131,5,0.1)
-    alpha_h0_feature_to_file(0,1131,5,0.1)
-    alpha_simplex_feature_to_file('euler',0,1131,5,0.1)
+    get_topological_feature()
     label_to_file()
-    
 
     
-    
+main()
     
     
 
