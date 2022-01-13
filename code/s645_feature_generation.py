@@ -413,10 +413,10 @@ def alpha_zero_homology_to_file(start,end,filtration):
         for typ in [ 'binding_mut', 'binding_wild', 'mutation_mut', 'mutation_wild' ]:
         #for typ in ['']
             for atom in ['C','N','O','CN','CO','NO']:
-                filename1 = Pre + 's645_point_10/' + folder + '_' + typ + '_' + atom + '1.txt'
-                filename2 = Pre + 's645_point_10/' + folder + '_' + typ + '_' + atom + '2.txt'
-                point1 = np.loadtxt(filename1,delimiter=',')
-                point2 = np.loadtxt(filename2,delimiter=',')
+                filename1 = Pre + 's645_point_10/' + folder + '_' + typ + '_' + atom + '1.npy'
+                filename2 = Pre + 's645_point_10/' + folder + '_' + typ + '_' + atom + '2.npy'
+                point1 = np.load(filename1)
+                point2 = np.load(filename2)
                 #print(point1.shape,point2.shape)
                 
                 V1,E1 = get_alpha_one_skeleton(point1,filtration)
@@ -580,10 +580,10 @@ def alpha_edge_triangle_number_to_file(start,end,filtration,grid_size):
         for typ in [ 'binding_mut', 'binding_wild', 'mutation_mut', 'mutation_wild' ]:
         
             for atom in ['C','N','O','CN','CO','NO']:
-                filename1 = Pre + 's645_point_10/' + folder + '_' + typ + '_' + atom + '1.txt'
-                filename2 = Pre + 's645_point_10/' + folder + '_' + typ + '_' + atom + '2.txt'
-                point1 = np.loadtxt(filename1,delimiter=',')
-                point2 = np.loadtxt(filename2,delimiter=',')
+                filename1 = Pre + 's645_point_10/' + folder + '_' + typ + '_' + atom + '1.npy'
+                filename2 = Pre + 's645_point_10/' + folder + '_' + typ + '_' + atom + '2.npy'
+                point1 = np.load(filename1)
+                point2 = np.load(filename2)
                 #print(point1.shape,point2.shape)
                 
                 V1,E1 = get_alpha_one_skeleton(point1,filtration)
@@ -733,4 +733,4 @@ def main():
     
 main()
     
-
+    
