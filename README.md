@@ -52,5 +52,5 @@ def alpha_simplex_feature_to_file(typ,start,end,filtration,grid_size)
     # parameter "grid_size" is 0.1 in our model
 ```
 ## Machine learning
-GradientBoostingRegressor is used to do the ten fold cross-validation in our model. Detailed parameters of GBT can be found in our paper. The corresponding python script is "10CV_final.py"
+GradientBoostingRegressor is used to do the ten fold cross-validation in our model. Detailed parameters of GBT can be found in our paper. The corresponding python script is "10_cross_validation.py"
 
